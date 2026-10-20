@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
+
+if [ "$branch" = "master" ]; then
+  echo "Error: Commits directly to the 'master' branch are not allowed." >&2
+  echo "Create or switch to another branch and try again." >&2
+  exit 1
+fi
