@@ -48,5 +48,19 @@
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
     "vitest": "^4.1.2"
+  },
+  "imports": {
+    "#src/*.js": {
+      "types": "./src/*.ts",
+      "default": "./dist/*.js"
+    },
+    "#logger": {
+      "types": "./src/logger/logger.service.ts",
+      "default": "./dist/logger/logger.service.js"
+    },
+    "#config": {
+      "types": "./src/config/env.schema.ts",
+      "default": "./dist/config/env.schema.js"
+    }
   }
 }
