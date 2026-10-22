@@ -31,7 +31,7 @@ model Skills {
   name      String
 
   profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("skills")
 }
@@ -42,7 +42,7 @@ model Experience {
   position String
 
   profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("experiences")
 }
@@ -54,7 +54,7 @@ model Project {
   url         String?
 
   profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id])
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }
