@@ -1,13 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-@ObjectType({ description: '' })
+@ObjectType({ description: 'A project presented on a profile' })
 export class Project {
-  @Field({ description: '' })
+  @Field({ description: 'The project name' })
   name: string
 
-  @Field({ description: '' })
-  description: string
+  @Field(() => String, { description: 'A short summary of the project', nullable: true })
+  description: string | null
 
-  @Field({ description: '' })
-  url: string
+  @Field(() => String, { description: 'A link to the project, when available', nullable: true })
+  url: string | null
 }
