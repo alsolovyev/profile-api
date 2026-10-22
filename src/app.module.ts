@@ -5,8 +5,9 @@ import { LoggerModule } from '#src/logger/logger.module.js'
 import { PrismaModule } from '#src/prisma/prisma.module.js'
 import { GraphQLModule } from '#src/graphql/graphql.module.js'
 import { HealthModule } from '#src/health/health.module.js'
+import { ProfileModule } from '#src/profile/profile.module.js'
 
 @Module({
-  imports: [AppConfigModule, LoggerModule, PrismaModule, GraphQLModule, HealthModule]
+  imports: [AppConfigModule, LoggerModule, PrismaModule, GraphQLModule, HealthModule, ProfileModule]
 })
 export class AppModule { }
