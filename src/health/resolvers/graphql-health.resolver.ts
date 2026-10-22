@@ -3,11 +3,11 @@ import { Query, ResolveField, Resolver } from '@nestjs/graphql'
 
 import { PrismaService } from '#src/prisma/prisma.service.js'
 
-import { Health, HealthState } from './models/health.model.js'
+import { Health, HealthState } from '../models/health.model.js'
 
 @Resolver(() => Health)
-export class HealthResolver {
-  private readonly logger = new Logger(HealthResolver.name)
+export class GraphQLHealthResolver {
+  private readonly logger = new Logger(GraphQLHealthResolver.name)
 
   constructor(private readonly prismaService: PrismaService) { }
 
