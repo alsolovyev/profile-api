@@ -14,6 +14,7 @@ async function bootstrap() {
 
   app.useLogger(logger)
   app.use(createLoggerMiddleware(logger))
+  app.enableShutdownHooks()
 
   await app.listen(port)
 }

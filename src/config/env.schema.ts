@@ -8,7 +8,12 @@ export const envSchema = z.object({
     .trim()
     .toLowerCase()
     .pipe(z.enum(['verbose', 'debug', 'log', 'warn', 'error', 'fatal']))
-    .optional()
+    .optional(),
+  POSTGRES_USER: z.string(),
+  POSTGRES_PASSWORD: z.string(),
+  POSTGRES_PORT: z.string(),
+  POSTGRES_HOST: z.string(),
+  POSTGRES_DB: z.string()
 })
 
 export type Env = z.infer<typeof envSchema>
