@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core'
 import { ConfigService } from '@nestjs/config'
 
-import { Env } from '#config'
-import { LoggerService } from '#logger'
 import { AppModule } from '#src/app.module.js'
+import { LoggerService } from '#src/logger/logger.service.js'
 import { createLoggerMiddleware } from '#src/logger/logger.middleware.js'
+
+import type { Env } from '#src/config/env.schema.js'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true })
