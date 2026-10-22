@@ -7,7 +7,8 @@ export class ProfileResolver {
   profile(): Profile {
     return {
       name: 'Aleksey Solovyev',
-      description: 'Some description'
+      description: 'Some description',
+      skills: [{ name: 'JS' }]
     }
   }
 }
