@@ -16,7 +16,47 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
-async function main() { }
+async function main() {
+  const name = 'Aleksey Solovyev'
+
+  const existingProfile = await prisma.profile.findFirst({
+    where: { name }
+  })
+
+  if (existingProfile) {
+    return console.log('Profile already created')
+  }
+
+  const profile = await prisma.profile.create({
+    data: {
+      name,
+      experiences: {
+        create: [{ company: 'SkyEng', position: 'senior frontend developer' }]
+      },
+      projects: {
+        create: [
+          {
+            name: 'SeeYou',
+            description: 'Simple peer-to-peer video call',
+            url: 'https://also.alwaysdata.net'
+          }
+        ]
+      },
+      skills: {
+        create: [
+          { name: 'TypeScript' },
+          { name: 'Docker' },
+          { name: 'NestJS' },
+          { name: 'GraphQL' },
+          { name: 'PostgreSQL' }
+        ]
+      }
+    },
+    include: { skills: true }
+  })
+
+  console.log({ profile })
+}
 
 main()
   .then(async () => {

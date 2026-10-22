@@ -5,7 +5,7 @@
 
 generator client {
   provider     = "prisma-client"
-  output       = "../prisma/generated"
+  output       = "generated"
   moduleFormat = "cjs"
 }
 
@@ -13,3 +13,48 @@ datasource db {
   provider = "postgresql"
 }
 
+
+model Profile {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String 
+  description String?
+  skills      Skills[] 
+  experiences Experience[]
+  projects    Project[]
+
+
+  @@map("profiles")
+}
+
+model Skills {
+  id        String @id @default(uuid()) @db.Uuid
+  name      String
+
+  profileId String @db.Uuid
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  @@map("skills")
+}
+
+model Experience {
+  id       String @id @default(uuid()) @db.Uuid
+  company  String
+  position String
+
+  profileId String @db.Uuid
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  @@map("experiences")
+}
+
+model Project {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  url         String?
+
+  profileId String @db.Uuid
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  @@map("projects")
+}
