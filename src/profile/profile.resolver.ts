@@ -8,8 +8,8 @@ export class ProfileResolver {
   constructor(private readonly profileService: ProfileService) { }
 
   @Query(() => Profile)
-  profile(): Profile {
-    const profile = this.profileService.get()
+  async profile(): Promise<Profile> {
+    const profile = await this.profileService.get()
 
     return profile
   }
