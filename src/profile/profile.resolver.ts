@@ -9,7 +9,8 @@ export class ProfileResolver {
       name: 'Aleksey Solovyev',
       description: 'Some description',
       skills: [{ name: 'JS' }],
-      experiences: [{ company: 'SkyEnd', position: 'Senior Frontend Developer' }]
+      experiences: [{ company: 'SkyEnd', position: 'Senior Frontend Developer' }],
+      projects: [{ name: 'SeeYou', description: 'Simple peer-to-peer video call', url: 'https://also.alwaysdata.net' }]
     }
   }
 }
