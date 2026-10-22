@@ -23,4 +23,7 @@ export class Health {
 
   @Field({ description: 'Deployed application version' })
   version: string
+
+  @Field(() => HealthState, { description: 'Database connectivity' })
+  database: HealthState
 }
