@@ -12,9 +12,15 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     const host = configService.getOrThrow<string>('POSTGRES_HOST')
     const port = configService.getOrThrow<string>('POSTGRES_PORT')
     const db = configService.getOrThrow<string>('POSTGRES_DB')
+    const connectionTimeoutMillis = configService.getOrThrow<number>('POSTGRES_CONNECTION_TIMEOUT_MS')
+    const queryTimeoutMillis = configService.getOrThrow<number>('POSTGRES_QUERY_TIMEOUT_MS')
+    const statementTimeoutMillis = configService.getOrThrow<number>('POSTGRES_STATEMENT_TIMEOUT_MS')
 
     const adapter = new PrismaPg({
-      connectionString: `postgresql://${user}:${password}@${host}:${port}/${db}?schema=public`
+      connectionString: `postgresql://${user}:${password}@${host}:${port}/${db}?schema=public`,
+      connectionTimeoutMillis,
+      query_timeout: queryTimeoutMillis,
+      statement_timeout: statementTimeoutMillis
     })
 
     super({ adapter })

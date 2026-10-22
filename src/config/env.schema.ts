@@ -13,7 +13,10 @@ export const envSchema = z.object({
   POSTGRES_PASSWORD: z.string(),
   POSTGRES_PORT: z.string(),
   POSTGRES_HOST: z.string(),
-  POSTGRES_DB: z.string()
+  POSTGRES_DB: z.string(),
+  POSTGRES_CONNECTION_TIMEOUT_MS: z.coerce.number().int().positive().default(3000),
+  POSTGRES_QUERY_TIMEOUT_MS: z.coerce.number().int().positive().default(3000),
+  POSTGRES_STATEMENT_TIMEOUT_MS: z.coerce.number().int().positive().default(3000)
 })
 
 export type AppConfig = z.infer<typeof envSchema>
