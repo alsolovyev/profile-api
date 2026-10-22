@@ -4,11 +4,9 @@ import { PrismaPg } from '@prisma/adapter-pg'
 
 import { PrismaClient } from './generated/client.js'
 
-import type { Env } from '#src/config/env.schema.js'
-
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
-  constructor(configService: ConfigService<Env>) {
+  constructor(configService: ConfigService<App.Config>) {
     const user = configService.getOrThrow<string>('POSTGRES_USER')
     const password = configService.getOrThrow<string>('POSTGRES_PASSWORD')
     const host = configService.getOrThrow<string>('POSTGRES_HOST')

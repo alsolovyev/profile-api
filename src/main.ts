@@ -5,11 +5,9 @@ import { AppModule } from '#src/app.module.js'
 import { LoggerService } from '#src/logger/logger.service.js'
 import { createLoggerMiddleware } from '#src/logger/logger.middleware.js'
 
-import type { Env } from '#src/config/env.schema.js'
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true })
-  const config = app.get<ConfigService, ConfigService<Env>>(ConfigService)
+  const config = app.get<ConfigService, ConfigService<App.Config>>(ConfigService)
   const port = config.getOrThrow<number>('PORT')
   const logger = app.get(LoggerService)
 

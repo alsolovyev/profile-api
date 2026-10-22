@@ -16,4 +16,4 @@ export const envSchema = z.object({
   POSTGRES_DB: z.string()
 })
 
-export type Env = z.infer<typeof envSchema>
+export type AppConfig = z.infer<typeof envSchema>

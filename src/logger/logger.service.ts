@@ -1,11 +1,9 @@
 import { ConsoleLogger, Injectable, type LogLevel } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
-import type { Env } from '#src/config/env.schema.js'
-
 @Injectable()
 export class LoggerService extends ConsoleLogger {
-  constructor(config: ConfigService<Env>) {
+  constructor(config: ConfigService<App.Config>) {
     const nodeEnv = config.get<string>('NODE_ENV')
     const logLevel = config.get<LogLevel>('LOG_LEVEL')
 

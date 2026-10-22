@@ -2,9 +2,8 @@ import { randomUUID } from 'node:crypto'
 import { performance } from 'node:perf_hooks'
 
 import type { RequestHandler } from 'express'
-import type { LoggerService } from './logger.service.js'
 
-export function createLoggerMiddleware(logger: LoggerService): RequestHandler {
+export function createLoggerMiddleware(logger: App.Logger): RequestHandler {
   return (req, res, next) => {
     const startedAt = performance.now()
     const requestId = randomUUID()
