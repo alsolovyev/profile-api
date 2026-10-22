@@ -1,16 +1,16 @@
 import { Query, Resolver } from '@nestjs/graphql'
+
 import { Profile } from './models/profile.model.js'
+import { ProfileService } from './profile.provider.js'
 
 @Resolver(() => Profile)
 export class ProfileResolver {
+  constructor(private readonly profileService: ProfileService) { }
+
   @Query(() => Profile)
   profile(): Profile {
-    return {
-      name: 'Aleksey Solovyev',
-      description: 'Some description',
-      skills: [{ name: 'JS' }],
-      experiences: [{ company: 'SkyEnd', position: 'Senior Frontend Developer' }],
-      projects: [{ name: 'SeeYou', description: 'Simple peer-to-peer video call', url: 'https://also.alwaysdata.net' }]
-    }
+    const profile = this.profileService.get()
+
+    return profile
   }
 }
