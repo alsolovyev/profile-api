@@ -8,7 +8,8 @@ export class ProfileResolver {
     return {
       name: 'Aleksey Solovyev',
       description: 'Some description',
-      skills: [{ name: 'JS' }]
+      skills: [{ name: 'JS' }],
+      experiences: [{ company: 'SkyEnd', position: 'Senior Frontend Developer' }]
     }
   }
 }

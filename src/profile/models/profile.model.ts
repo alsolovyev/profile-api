@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
 import { Skill } from './skill.model.js'
+import { Experience } from './experience.model.js'
 
 @ObjectType({ description: '' })
 export class Profile {
@@ -12,4 +13,7 @@ export class Profile {
 
   @Field(() => [Skill], { description: '' })
   skills: Skill[]
+
+  @Field(() => [Experience], { description: '' })
+  experiences: Experience[]
 }
