@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 
 import { ProfileRepository } from './profile.repository.js'
+import { ProfileNotFoundError } from './profile.errors.js'
+
 import type { ProfileSnapshot } from './profile.types.js'
 
 @Injectable()
@@ -11,7 +13,7 @@ export class ProfileService {
     const profile = await this.profileRepository.findProfile()
 
     if (!profile) {
-      throw new NotFoundException('Profile not found')
+      throw new ProfileNotFoundError()
     }
 
     return profile
