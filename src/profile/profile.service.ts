@@ -1,14 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
-import { PrismaProfileRepository } from './profile.repository.js'
-
-import type { Profile } from './models/profile.model.js'
+import { ProfileRepository } from './profile.repository.js'
+import type { ProfileSnapshot } from './profile.types.js'
 
 @Injectable()
 export class ProfileService {
-  constructor(private readonly profileRepository: PrismaProfileRepository) { }
+  constructor(private readonly profileRepository: ProfileRepository) { }
 
-  async getProfile(): Promise<Profile> {
+  async getProfile(): Promise<ProfileSnapshot> {
     const profile = await this.profileRepository.findProfile()
 
     if (!profile) {
