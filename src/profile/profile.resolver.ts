@@ -1,7 +1,7 @@
 import { Query, Resolver } from '@nestjs/graphql'
 
 import { Profile } from './models/profile.model.js'
-import { ProfileService } from './profile.provider.js'
+import { ProfileService } from './profile.service.js'
 
 @Resolver(() => Profile)
 export class ProfileResolver {
@@ -9,7 +9,7 @@ export class ProfileResolver {
 
   @Query(() => Profile)
   async profile(): Promise<Profile> {
-    const profile = await this.profileService.get()
+    const profile = await this.profileService.getProfile()
 
     return profile
   }
