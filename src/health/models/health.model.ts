@@ -1,9 +1,5 @@
 import { Field, Float, ObjectType, registerEnumType } from '@nestjs/graphql'
-
-export enum HealthState {
-  UP = 'UP',
-  DOWN = 'DOWN'
-}
+import { HealthState } from '../domain/health-status.enum.js'
 
 registerEnumType(HealthState, {
   name: 'HealthState',
@@ -11,7 +7,7 @@ registerEnumType(HealthState, {
 })
 
 @ObjectType({ description: 'Health status of the API and its dependencies' })
-export class Health {
+export class HealthModel {
   @Field(() => HealthState, { description: 'Status of the API' })
   status: HealthState
 
