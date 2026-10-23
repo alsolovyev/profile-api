@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '#src/prisma/prisma.service.js'
-
-import { ProfileRepository } from '../profile.repository.js'
-import type { ProfileSnapshot } from '../profile.types.js'
+import { ProfileRepository } from './profile.repository.js'
+import type { Profile } from '../domain/profile.interface.js'
 
 @Injectable()
 export class PrismaProfileRepository extends ProfileRepository {
@@ -10,7 +9,7 @@ export class PrismaProfileRepository extends ProfileRepository {
     super()
   }
 
-  async findProfile(): Promise<ProfileSnapshot | null> {
+  async findPublicProfile(): Promise<Profile | null> {
     return this.prisma.profile.findFirst({
       include: {
         skills: true,

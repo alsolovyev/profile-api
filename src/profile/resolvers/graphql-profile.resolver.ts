@@ -1,15 +1,15 @@
 import { Query, Resolver } from '@nestjs/graphql'
 
-import { Profile } from '../models/profile.model.js'
-import { ProfileService } from '../profile.service.js'
+import { ProfileModel } from '../models/profile.model.js'
+import { GetPublicProfileUseCase } from '../usecases/get-public-profile.usecase.js'
 
-@Resolver(() => Profile)
+@Resolver(() => ProfileModel)
 export class GraphQLProfileResolver {
-  constructor(private readonly profileService: ProfileService) { }
+  constructor(private readonly getPublicProfile: GetPublicProfileUseCase) { }
 
-  @Query(() => Profile)
-  async profile(): Promise<Profile> {
-    const profile = await this.profileService.getProfile()
+  @Query(() => ProfileModel, { nullable: true })
+  async profile(): Promise<ProfileModel | null> {
+    const profile = await this.getPublicProfile.execute()
 
     return profile
   }

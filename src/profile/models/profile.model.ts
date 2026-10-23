@@ -1,23 +1,23 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
-import { Skill } from './skill.model.js'
-import { Experience } from './experience.model.js'
-import { Project } from './project.model.js'
+import { SkillModel } from './skill.model.js'
+import { ExperienceModel } from './experience.model.js'
+import { ProjectModel } from './project.model.js'
 
 @ObjectType({ description: 'A public profile' })
-export class Profile {
+export class ProfileModel {
   @Field({ description: 'The profile owner’s display name' })
   name: string
 
   @Field(() => String, { description: 'An optional biography of the profile owner', nullable: true })
   description: string | null
 
-  @Field(() => [Skill], { description: 'Skills associated with this profile' })
-  skills: Skill[]
+  @Field(() => [SkillModel], { description: 'Skills associated with this profile' })
+  skills: SkillModel[]
 
-  @Field(() => [Experience], {description: 'Professional experience associated with this profile' })
-  experiences: Experience[]
+  @Field(() => [ExperienceModel], {description: 'Professional experience associated with this profile' })
+  experiences: ExperienceModel[]
 
-  @Field(() => [Project], { description: 'Projects associated with this profile' })
-  projects: Project[]
+  @Field(() => [ProjectModel], { description: 'Projects associated with this profile' })
+  projects: ProjectModel[]
 }

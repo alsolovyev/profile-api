@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'A professional role or work experience on a profile' })
-export class Experience {
+export class ExperienceModel {
   @Field({ description: 'The company or organization where the role was held' })
   company: string
 

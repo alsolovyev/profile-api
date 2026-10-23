@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'A project presented on a profile' })
-export class Project {
+export class ProjectModel {
   @Field({ description: 'The project name' })
   name: string
 
