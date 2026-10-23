@@ -11,7 +11,7 @@ export function createLoggerMiddleware(logger: App.Logger): RequestHandler {
     res.setHeader('X-Request-Id', requestId)
 
     res.once('close', () => {
-      const route = req.route?.path ?? 'unmatched'
+      const route = (req.route?.path || req.baseUrl) ?? 'unmatched'
       const duration = Number((performance.now() - startedAt).toFixed(2))
 
       logger.log(
