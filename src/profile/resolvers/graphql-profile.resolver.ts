@@ -1,16 +1,15 @@
-import { Query, Resolver } from '@nestjs/graphql'
+import { ParseUUIDPipe } from '@nestjs/common'
+import { Args, Query, Resolver } from '@nestjs/graphql'
 
 import { ProfileModel } from '../models/profile.model.js'
-import { GetPublicProfileUseCase } from '../usecases/get-public-profile.usecase.js'
+import { GetProfileUseCase } from '../usecases/get-profile.usecase.js'
 
 @Resolver(() => ProfileModel)
 export class GraphQLProfileResolver {
-  constructor(private readonly getPublicProfile: GetPublicProfileUseCase) { }
+  constructor(private readonly getProfile: GetProfileUseCase) { }
 
   @Query(() => ProfileModel, { nullable: true })
-  async profile(): Promise<ProfileModel | null> {
-    const profile = await this.getPublicProfile.execute()
-
-    return profile
+  async profile(@Args('uuid', { type: () => String }, ParseUUIDPipe) uuid: string): Promise<ProfileModel | null> {
+    return await this.getProfile.execute(uuid)
   }
 }

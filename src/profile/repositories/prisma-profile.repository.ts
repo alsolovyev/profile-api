@@ -9,13 +9,9 @@ export class PrismaProfileRepository extends ProfileRepository {
     super()
   }
 
-  async findPublicProfile(): Promise<Profile | null> {
-    return this.prisma.profile.findFirst({
-      include: {
-        skills: true,
-        experiences: true,
-        projects: true
-      }
+  async findProfile(uuid: string): Promise<Profile | null> {
+    return this.prisma.profile.findUnique({
+      where: { id: uuid }
     })
   }
 }
