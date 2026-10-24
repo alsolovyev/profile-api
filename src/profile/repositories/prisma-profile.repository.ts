@@ -6,6 +6,7 @@ import { ProfileRepository } from './profile.repository.js'
 import { Link } from '../domain/link.interface.js'
 
 import type { Profile } from '../domain/profile.interface.js'
+import type { Experience } from '../domain/experience.interface.js'
 
 @Injectable()
 export class PrismaProfileRepository extends ProfileRepository {
@@ -16,6 +17,12 @@ export class PrismaProfileRepository extends ProfileRepository {
   async findProfile(uuid: string): Promise<Profile | null> {
     return this.prisma.profile.findUnique({
       where: { id: uuid }
+    })
+  }
+
+  async findProfileExperiences(profileUuid: string): Promise<Experience[]> {
+    return await this.prisma.experience.findMany({
+      where: { id: profileUuid }
     })
   }
 
