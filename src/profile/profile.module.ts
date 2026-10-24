@@ -6,13 +6,15 @@ import { ProfileRepository } from './repositories/profile.repository.js'
 import { PrismaProfileRepository } from './repositories/prisma-profile.repository.js'
 import { GraphQLProfileResolver } from './resolvers/graphql-profile.resolver.js'
 import { GetProfileUseCase } from './usecases/get-profile.usecase.js'
+import { GetProfileLinksUseCase } from './usecases/get-profile-links.usecase.js'
 
 @Module({
   imports: [PrismaModule],
   providers: [
     GraphQLProfileResolver,
     { provide: ProfileRepository, useClass: PrismaProfileRepository },
-    GetProfileUseCase
+    GetProfileUseCase,
+    GetProfileLinksUseCase
   ]
 })
 export class ProfileModule { }

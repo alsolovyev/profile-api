@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common'
+
 import { PrismaService } from '#src/prisma/prisma.service.js'
+
 import { ProfileRepository } from './profile.repository.js'
+import { Link } from '../domain/link.interface.js'
+
 import type { Profile } from '../domain/profile.interface.js'
 
 @Injectable()
@@ -12,6 +16,12 @@ export class PrismaProfileRepository extends ProfileRepository {
   async findProfile(uuid: string): Promise<Profile | null> {
     return this.prisma.profile.findUnique({
       where: { id: uuid }
+    })
+  }
+
+  async findProfileLinks(profileUuid: string): Promise<Link[]> {
+    return this.prisma.link.findMany({
+      where: { profileId: profileUuid }
     })
   }
 }
