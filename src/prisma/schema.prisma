@@ -13,36 +13,50 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model Profile {
-  id          String   @id @default(uuid()) @db.Uuid
-  name        String 
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
   description String?
-  skills      Skill[] 
+
+  links       Link[]
+  skills      Skill[]
   experiences Experience[]
   projects    Project[]
-
 
   @@map("profiles")
 }
 
-model Skill {
-  id        String @id @default(uuid()) @db.Uuid
-  name      String
+model Link {
+  id    String @id @default(uuid()) @db.Uuid
+  label String
+  url   String
 
-  profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("links")
+}
+
+model Skill {
+  id   String @id @default(uuid()) @db.Uuid
+  name String
+
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("skills")
 }
 
 model Experience {
-  id       String @id @default(uuid()) @db.Uuid
-  company  String
-  position String
+  id           String    @id @default(uuid()) @db.Uuid
+  company      String
+  position     String
+  startDate    DateTime  @map("start_date") @db.Date
+  endDate      DateTime? @map("end_date") @db.Date
+  achievements String[]  @default([])
 
-  profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("experiences")
 }
@@ -53,8 +67,8 @@ model Project {
   description String?
   url         String?
 
-  profileId String @db.Uuid
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String  @map("profile_id") @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }
