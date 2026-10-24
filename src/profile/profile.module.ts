@@ -8,6 +8,7 @@ import { GraphQLProfileResolver } from './resolvers/graphql-profile.resolver.js'
 import { GetProfileUseCase } from './usecases/get-profile.usecase.js'
 import { GetProfileLinksUseCase } from './usecases/get-profile-links.usecase.js'
 import { GetProfileExperiencesUseCase } from './usecases/get-profile-experience.usecase.js'
+import { GetProfileProjectsUseCase } from './usecases/get-profile-projects.usecase.js'
 
 @Module({
   imports: [PrismaModule],
@@ -16,7 +17,8 @@ import { GetProfileExperiencesUseCase } from './usecases/get-profile-experience.
     { provide: ProfileRepository, useClass: PrismaProfileRepository },
     GetProfileUseCase,
     GetProfileLinksUseCase,
-    GetProfileExperiencesUseCase
+    GetProfileExperiencesUseCase,
+    GetProfileProjectsUseCase
   ]
 })
 export class ProfileModule { }
