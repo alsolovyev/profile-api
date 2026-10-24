@@ -9,6 +9,7 @@ import { GetProfileUseCase } from './usecases/get-profile.usecase.js'
 import { GetProfileLinksUseCase } from './usecases/get-profile-links.usecase.js'
 import { GetProfileExperiencesUseCase } from './usecases/get-profile-experience.usecase.js'
 import { GetProfileProjectsUseCase } from './usecases/get-profile-projects.usecase.js'
+import { GetProfileSkillsUseCase } from './usecases/get-profile-skills.usecase.js'
 
 @Module({
   imports: [PrismaModule],
@@ -18,7 +19,8 @@ import { GetProfileProjectsUseCase } from './usecases/get-profile-projects.useca
     GetProfileUseCase,
     GetProfileLinksUseCase,
     GetProfileExperiencesUseCase,
-    GetProfileProjectsUseCase
+    GetProfileProjectsUseCase,
+    GetProfileSkillsUseCase
   ]
 })
 export class ProfileModule { }
