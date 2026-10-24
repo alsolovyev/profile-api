@@ -18,7 +18,7 @@ model Profile {
   id          String   @id @default(uuid()) @db.Uuid
   name        String 
   description String?
-  skills      Skills[] 
+  skills      Skill[] 
   experiences Experience[]
   projects    Project[]
 
@@ -26,7 +26,7 @@ model Profile {
   @@map("profiles")
 }
 
-model Skills {
+model Skill {
   id        String @id @default(uuid()) @db.Uuid
   name      String
 
