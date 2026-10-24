@@ -1,7 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql'
+import { Project } from '../domain/project.interface.js'
 
 @ObjectType({ description: 'A project presented on a profile' })
-export class ProjectModel {
+export class ProjectModel implements Omit<Project, 'id'> {
   @Field({ description: 'The project name' })
   name: string
 

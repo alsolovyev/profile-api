@@ -1,7 +1,8 @@
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
+import { Experience } from '../domain/experience.interface.js'
 
 @ObjectType({ description: 'A professional role or work experience on a profile' })
-export class ExperienceModel {
+export class ExperienceModel implements Omit<Experience, 'id'>{
   @Field({ description: 'The company or organization where the role was held' })
   company: string
 

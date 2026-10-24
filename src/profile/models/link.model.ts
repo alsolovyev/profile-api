@@ -1,7 +1,8 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { Link } from '../domain/link.interface.js'
 
 @ObjectType({ description: 'An external link listed on a profile' })
-export class LinkModel {
+export class LinkModel implements Omit<Link, 'id'> {
   @Field({ description: 'A display label for the link, such as GitHub or LinkedIn' })
   label: string
 
