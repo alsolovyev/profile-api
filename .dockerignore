@@ -1,0 +1,16 @@
+!.env.example
+*.log
+.DS_Store
+.dockerignore
+.env
+.env.*
+.git
+.githooks
+.idea
+.vscode
+Dockerfile
+coverage
+dist
+docker-compose*.yml
+node_modules
+src/prisma/generated
