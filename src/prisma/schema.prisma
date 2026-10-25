@@ -34,6 +34,7 @@ model Link {
   profileId String  @map("profile_id") @db.Uuid
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
+  @@unique([profileId, label])
   @@map("links")
 }
 
@@ -44,6 +45,7 @@ model Skill {
   profileId String  @map("profile_id") @db.Uuid
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
+  @@unique([profileId, name])
   @@map("skills")
 }
 
@@ -70,5 +72,6 @@ model Project {
   profileId String  @map("profile_id") @db.Uuid
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
+  @@unique([profileId, name])
   @@map("projects")
 }

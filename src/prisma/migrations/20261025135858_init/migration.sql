@@ -50,6 +50,15 @@ CREATE TABLE "projects" (
     CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "links_profile_id_label_key" ON "links"("profile_id", "label");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "skills_profile_id_name_key" ON "skills"("profile_id", "name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "projects_profile_id_name_key" ON "projects"("profile_id", "name");
+
 -- AddForeignKey
 ALTER TABLE "links" ADD CONSTRAINT "links_profile_id_fkey" FOREIGN KEY ("profile_id") REFERENCES "profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
