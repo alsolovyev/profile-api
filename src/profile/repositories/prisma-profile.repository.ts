@@ -24,13 +24,13 @@ export class PrismaProfileRepository extends ProfileRepository {
 
   async findProfileExperiences(profileUuid: string): Promise<Experience[]> {
     return await this.prisma.experience.findMany({
-      where: { id: profileUuid }
+      where: { profileId: profileUuid }
     })
   }
 
   async findProfileProjects(profileUuid: string): Promise<Project[]> {
     return await this.prisma.project.findMany({
-      where: { id: profileUuid }
+      where: { profileId: profileUuid }
     })
   }
 
@@ -42,7 +42,7 @@ export class PrismaProfileRepository extends ProfileRepository {
 
   async findProfileSkills(profileUuid: string): Promise<Skill[]> {
     return await this.prisma.skill.findMany({
-      where: { id: profileUuid }
+      where: { profileId: profileUuid }
     })
   }
 }
