@@ -78,13 +78,10 @@ const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  const createdProfile = await prisma.profile.upsert({
-    where: { id: profile.id },
-    create: profile,
-    update: profile
-  })
-
-  console.log({ createdProfile })
+  await prisma.$transaction([
+    prisma.profile.deleteMany({ where: { id: profile.id } }),
+    prisma.profile.create({ data: profile })
+  ])
 }
 
 main()
