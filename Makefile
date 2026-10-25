@@ -18,6 +18,9 @@ migration: ## Create a migration
 	@test -n "$(NAME)" || { echo "Provide a migration name: make migration NAME=add_users"; exit 1; }
 	docker compose exec api npm run db:migrate:dev -- --name $(NAME)
 
+seed: ## Seed the db with demo data manually
+	docker compose exec api npm run db:seed
+
 logs-api: ## Show the api logs 
 	docker compose logs -f --tail=100 api
 
