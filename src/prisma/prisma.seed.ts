@@ -9,6 +9,67 @@ const password = process.env['POSTGRES_PASSWORD']
 const port = process.env['POSTGRES_PORT']
 const host = process.env['POSTGRES_HOST']
 const db = process.env['POSTGRES_DB']
+const profile = {
+  id: '11111111-1111-4111-8111-111111111111',
+  name: 'Aleksey Solovyev',
+  description: 'Backend-азработчик: NestJS, GraphQL, PostgreSQL. Тестовые данные для портфолио.',
+  links: {
+    create: [
+      { label: 'GitHub', url: 'https://github.com/example' },
+      { label: 'LinkedIn', url: 'https://www.linkedin.com/in/example' },
+      { label: 'Email', url: 'mailto:hello@example.com' }
+    ]
+  },
+  experiences: {
+    create: [
+      {
+        company: 'Acme Corp',
+        position: 'Senior Backend Developer',
+        startDate: new Date('2022-03-01'),
+        endDate: null,
+        achievements: [
+          'Спроектировал GraphQL API для внутренней платформы',
+          'Сократил время ответа ключевых запросов на 40%',
+          'Внедрил CI/CD и контейнеризацию сервисов'
+        ]
+      },
+      {
+        company: 'Globex LLC',
+        position: 'Backend Developer',
+        startDate: new Date('2019-06-01'),
+        endDate: new Date('2022-02-28'),
+        achievements: [
+          'Разработал REST и GraphQL сервисы на Node.js',
+          'Мигрировал монолит на модульную архитектуру'
+        ]
+      }
+    ]
+  },
+  projects: {
+    create: [
+      {
+        name: 'Developer Portfolio API',
+        description: 'NestJS + GraphQL + Prisma + PostgreSQL, запуск в Docker.',
+        url: 'https://github.com/example/portfolio-api'
+      },
+      {
+        name: 'Task Tracker',
+        description: 'Небольшой трекер задач с real-time обновлениями.',
+        url: null
+      }
+    ]
+  },
+  skills: {
+    create: [
+      { name: 'TypeScript' },
+      { name: 'NestJS' },
+      { name: 'GraphQL' },
+      { name: 'PostgreSQL' },
+      { name: 'Prisma' },
+      { name: 'Docker' }
+    ]
+  }
+}
 
 const pool = new Pool({
   connectionString: `postgresql://${user}:${password}@${host}:${port}/${db}?schema=public`
@@ -17,45 +78,13 @@ const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
-  const name = 'Aleksey Solovyev'
-
-  const existingProfile = await prisma.profile.findFirst({
-    where: { name }
+  const createdProfile = await prisma.profile.upsert({
+    where: { id: profile.id },
+    create: profile,
+    update: profile
   })
 
-  if (existingProfile) {
-    return console.log('Profile already created')
-  }
-
-  const profile = await prisma.profile.create({
-    data: {
-      name,
-      experiences: {
-        create: [{ company: 'SkyEng', position: 'senior frontend developer' }]
-      },
-      projects: {
-        create: [
-          {
-            name: 'SeeYou',
-            description: 'Simple peer-to-peer video call',
-            url: 'https://also.alwaysdata.net'
-          }
-        ]
-      },
-      skills: {
-        create: [
-          { name: 'TypeScript' },
-          { name: 'Docker' },
-          { name: 'NestJS' },
-          { name: 'GraphQL' },
-          { name: 'PostgreSQL' }
-        ]
-      }
-    },
-    include: { skills: true }
-  })
-
-  console.log({ profile })
+  console.log({ createdProfile })
 }
 
 main()
