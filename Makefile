@@ -14,6 +14,10 @@ reset: ## Stop and delete the db data
 build: ## Rebuild the image
 	docker compose build 
 
+migration: ## Create a migration 
+	@test -n "$(NAME)" || { echo "Provide a migration name: make migration NAME=add_users"; exit 1; }
+	docker compose exec api npm run db:migrate:dev -- --name $(NAME)
+
 logs-api: ## Show the api logs 
 	docker compose logs -f --tail=100 api
 
