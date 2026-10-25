@@ -10,6 +10,7 @@ import { formatGraphQLError } from './graphql.utils.js'
       driver: ApolloDriver,
       graphiql: true,
       autoSchemaFile: true,
+      introspection: true,
       formatError: formatGraphQLError
     })
   ]
