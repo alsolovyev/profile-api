@@ -39,4 +39,11 @@ COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
 USER node
 CMD node dist/main
- 
+
+FROM deps AS e2e
+COPY . .
+RUN npm run db:generate
+CMD \
+  npm run db:migrate:deploy && \
+  npm run db:seed && \
+  npm run test:e2e

@@ -1,5 +1,6 @@
 COMPOSE_DEV ?= docker compose -f docker-compose.dev.yaml --env-file .env
 COMPOSE_PROD ?= docker compose -f docker-compose.prod.yaml --env-file .env
+COMPOSE_TEST ?= docker compose -f docker-compose.test.yaml
 
 help: ## Show list of commands
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | \
@@ -13,6 +14,9 @@ stop: ## Stop dev
 
 reset: ## Stop and delete the db data 
 	$(COMPOSE_DEV) down -v
+
+test: ## Run tests
+	$(COMPOSE_TEST) up --build --exit-code-from e2e --no-attach db; code=$$?; $(COMPOSE_TEST) down -v; exit $$code
 
 build: ## Rebuild the image
 	$(COMPOSE_DEV) build 
