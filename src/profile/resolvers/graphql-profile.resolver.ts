@@ -14,6 +14,8 @@ import { GetProfileSkillsUseCase } from '../usecases/get-profile-skills.usecase.
 
 @Resolver(() => ProfileModel)
 export class GraphQLProfileResolver {
+  // NOTE: Consider using DataLoader to fetch related data in batches when loading
+  //       multiple profiles, instead of making a separate database query for each one
   constructor(
     private readonly getProfile: GetProfileUseCase,
     private readonly getProfileExperiences: GetProfileExperiencesUseCase,
