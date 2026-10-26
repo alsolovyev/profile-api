@@ -23,8 +23,9 @@ export class GraphQLProfileResolver {
   ) { }
 
   @Query(() => ProfileModel, { nullable: true })
-  async profile(@Args('uuid', { type: () => String }, ParseUUIDPipe) uuid: string): Promise<ProfileModel | null> {
-    return await this.getProfile.execute(uuid)
+  // async profile(@Args('uuid', { type: () => String }, ParseUUIDPipe) uuid: string): Promise<ProfileModel | null> {
+  async profile(): Promise<ProfileModel | null> {
+    return await this.getProfile.execute('11111111-1111-4111-8111-111111111111')
   }
 
   @ResolveField(() => [ExperienceModel])
