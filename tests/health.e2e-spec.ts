@@ -51,7 +51,7 @@ describe('Health', () => {
               }
             }`
           })
-        const { status, database, version }: HealthModel = response.body
+        const { status, database, version }: HealthModel = response.body.data.health
 
         expect(response.status).toBe(200)
         expect(status).toBe(HealthState.UP)
