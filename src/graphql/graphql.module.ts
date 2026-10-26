@@ -1,14 +1,55 @@
 import { Module } from '@nestjs/common'
 import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 
 import { formatGraphQLError } from './graphql.utils.js'
+
+const DEFAULT_QUERY = `query {
+  profile {
+    id
+    name
+    description
+    links {
+      label
+      url
+    }
+    skills {
+      name
+    }
+    experiences {
+      company
+      position
+      startDate
+      endDate
+      achievements
+    }
+    projects {
+      name
+      description
+      url
+    }
+  }
+  
+  health {
+    status
+    timestamp
+    uptime
+    version
+    database
+  }
+}`
 
 @Module({
   imports: [
     NestGraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      graphiql: true,
+      graphiql: false,
+      plugins: [
+        ApolloServerPluginLandingPageLocalDefault({
+          document: DEFAULT_QUERY
+        })
+      ],
       autoSchemaFile: true,
       introspection: true,
       formatError: formatGraphQLError
