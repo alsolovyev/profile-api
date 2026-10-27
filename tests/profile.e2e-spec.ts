@@ -20,7 +20,6 @@ describe('Profile', () => {
 
   describe('GraphQL', () => {
     describe('QUERY Profile', () => {
-      // TODO: add tests
       it('should successfully return a profile', async () => {
         const response = await request(app.getHttpServer())
           .post('/graphql')
@@ -52,7 +51,27 @@ describe('Profile', () => {
           })
 
         expect(response.status).toBe(200)
-        // TODO: add expects
+      })
+
+      it('shoudl return onyl required fields', async () => {
+        const response = await request(app.getHttpServer())
+          .post('/graphql')
+          .send({
+            query: `query Profile {
+              profile {
+                name
+                links {
+                  label
+                }
+              }
+            }`
+          })
+
+        const { links, experiences, projects } = response.body.data.profile
+
+        expect(links).not.toBeUndefined()
+        expect(experiences).toBeUndefined()
+        expect(projects).toBeUndefined()
       })
     })
   })
