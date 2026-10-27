@@ -45,5 +45,4 @@ COPY . .
 RUN npm run db:generate
 CMD \
   npm run db:migrate:deploy && \
-  npm run db:seed && \
   npm run test:e2e
