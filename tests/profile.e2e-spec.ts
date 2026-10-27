@@ -4,9 +4,15 @@ import { INestApplication } from '@nestjs/common'
 import { Pool } from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { Test } from '@nestjs/testing'
+import { afterEach, vi } from 'vitest'
 
-import { PrismaClient } from '#src/prisma/generated/client.js'
 import { AppModule } from '#src/app.module.js'
+import { GetProfileExperiencesUseCase } from '#src/profile/usecases/get-profile-experience.usecase.js'
+import { GetProfileLinksUseCase } from '#src/profile/usecases/get-profile-links.usecase.js'
+import { GetProfileProjectsUseCase } from '#src/profile/usecases/get-profile-projects.usecase.js'
+import { GetProfileSkillsUseCase } from '#src/profile/usecases/get-profile-skills.usecase.js'
+import { GetProfileUseCase } from '#src/profile/usecases/get-profile.usecase.js'
+import { PrismaClient } from '#src/prisma/generated/client.js'
 
 import { testProfile } from './fixtures/profile.fixture.js'
 
@@ -34,6 +40,10 @@ describe('Profile', () => {
   afterAll(async () => {
     await prisma.$disconnect()
     await app.close()
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
   describe('GraphQL', () => {
@@ -90,7 +100,13 @@ describe('Profile', () => {
       })
 
       it('shoudl return onyl required fields', async () => {
-        const response = await request(app.getHttpServer())
+        const getProfile = vi.spyOn(app.get(GetProfileUseCase), 'execute')
+        const getProfileLinks = vi.spyOn(app.get(GetProfileLinksUseCase), 'execute')
+        const getProfileSkills = vi.spyOn(app.get(GetProfileSkillsUseCase), 'execute')
+        const getProfileExperiences = vi.spyOn(app.get(GetProfileExperiencesUseCase), 'execute')
+        const getProfileProjects = vi.spyOn(app.get(GetProfileProjectsUseCase), 'execute')
+
+        await request(app.getHttpServer())
           .post('/graphql')
           .send({
             query: `query Profile {
@@ -103,11 +119,11 @@ describe('Profile', () => {
             }`
           })
 
-        const { links, experiences, projects } = response.body.data.profile
-
-        expect(links).not.toBeUndefined()
-        expect(experiences).toBeUndefined()
-        expect(projects).toBeUndefined()
+        expect(getProfile).toHaveBeenCalledOnce()
+        expect(getProfileLinks).toHaveBeenCalledOnce()
+        expect(getProfileSkills).not.toHaveBeenCalled()
+        expect(getProfileExperiences).not.toHaveBeenCalled()
+        expect(getProfileProjects).not.toHaveBeenCalled()
       })
     })
   })
