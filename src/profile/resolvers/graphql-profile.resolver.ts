@@ -14,8 +14,6 @@ import { GetProfileSkillsUseCase } from '../usecases/get-profile-skills.usecase.
 
 @Resolver(() => ProfileModel)
 export class GraphQLProfileResolver {
-  // NOTE: Consider using DataLoader to fetch related data in batches when loading
-  //       multiple profiles, instead of making a separate database query for each one
   constructor(
     private readonly getProfile: GetProfileUseCase,
     private readonly getProfileExperiences: GetProfileExperiencesUseCase,
@@ -25,9 +23,8 @@ export class GraphQLProfileResolver {
   ) { }
 
   @Query(() => ProfileModel, { nullable: true })
-  // async profile(@Args('uuid', { type: () => String }, ParseUUIDPipe) uuid: string): Promise<ProfileModel | null> {
-  async profile(): Promise<ProfileModel | null> {
-    return await this.getProfile.execute('11111111-1111-4111-8111-111111111111')
+  async profile(@Args('uuid', { type: () => String }, ParseUUIDPipe) uuid: string): Promise<ProfileModel | null> {
+    return await this.getProfile.execute(uuid)
   }
 
   @ResolveField(() => [ExperienceModel])

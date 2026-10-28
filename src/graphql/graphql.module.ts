@@ -6,7 +6,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { formatGraphQLError } from './graphql.utils.js'
 
 const DEFAULT_QUERY = `query {
-  profile {
+  profile(uuid: "11111111-1111-4111-8111-111111111111") {
     id
     name
     description
